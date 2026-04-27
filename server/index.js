@@ -34,8 +34,8 @@ if (fs.existsSync(clientDistPath)) {
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/contact-db';
 
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ Connected to MongoDB'))
-  .catch(err => console.error('❌ Connection error:', err));
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Connection error:', err));
 
 // Catch-all for SPA
 app.use((req, res) => {
@@ -53,7 +53,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
 
 module.exports = app;

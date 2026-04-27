@@ -3,8 +3,8 @@
 ContactNest is a production-ready, full-stack MERN application designed for seamless contact management with a premium, modern interface. It features complete user authentication, data isolation, and a beautifully themed dashboard.
 
 ## 🚀 Live Demo
-- **Frontend**: [Coming Soon](http://localhost:3000)
-- **Backend API**: [Coming Soon](http://localhost:5000)
+- **Frontend**: [Vercel](https://contactnest-frontend.vercel.app) (Placeholder)
+- **Backend API**: [Render](https://contactnest-backend.onrender.com)
 
 ## ✨ Features
 - **Secure Authentication**: Signup and Login with JWT and encrypted passwords (bcryptjs).
@@ -67,6 +67,12 @@ Create a `.env` file in the `/server` directory:
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
+FRONTEND_URL=your_vercel_frontend_url
+```
+
+Create a `.env` file in the `/client` directory:
+```env
+VITE_API_URL=https://contactnest-backend.onrender.com
 ```
 
 ## 🚀 API Endpoints
