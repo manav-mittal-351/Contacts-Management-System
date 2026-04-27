@@ -10,14 +10,15 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL || "https://contact-nest.vercel.app"
-  ],
-  credentials: true
+  origin: (origin, callback) => callback(null, true),
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token', 'Origin', 'Accept']
 }));
 app.use(express.json());
 
 // Routes
+app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'Backend is running' }));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/contacts', require('./routes/contacts'));
 
@@ -36,8 +37,12 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Connection error:', err));
 
-// Catch-all for SPA
-app.use((req, res) => {
+// Catch-all for SPA - only for GET requests that are not API routes
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ message: 'API route not found' });
+  }
+
   if (fs.existsSync(clientDistPath)) {
     res.sendFile(path.join(clientDistPath, 'index.html'));
   } else {
